@@ -1,0 +1,6 @@
+@NacosApi8_HostAddress = http://localhost:5297
+
+GET {{NacosApi8_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

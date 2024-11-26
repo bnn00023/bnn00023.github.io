@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NacosApi7", "NacosApi7\NacosApi7.csproj", "{F422B41A-CFB2-469A-951D-0D0118F76445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NacosApi8", "NacosApi8\NacosApi8.csproj", "{B92D8EF5-3061-447F-877D-84E4155B3903}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F422B41A-CFB2-469A-951D-0D0118F76445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F422B41A-CFB2-469A-951D-0D0118F76445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F422B41A-CFB2-469A-951D-0D0118F76445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F422B41A-CFB2-469A-951D-0D0118F76445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92D8EF5-3061-447F-877D-84E4155B3903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92D8EF5-3061-447F-877D-84E4155B3903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92D8EF5-3061-447F-877D-84E4155B3903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92D8EF5-3061-447F-877D-84E4155B3903}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
