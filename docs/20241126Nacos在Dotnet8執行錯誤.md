@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Nacos在.Net8執行錯誤"
-permalink: /Nacos在.Net8執行錯誤/
+title: "Nacos在Dotnet8執行錯誤"
+permalink: /Nacos在Dotnet8執行錯誤/
 ---
 
 ## 問題
