@@ -1,5 +1,5 @@
 ---
-layout: 不建議從Code去理解Domain
+layout: default
 title: "不建議從Code去理解Domain"
 permalink: /不建議從Code去理解Domain/
 ---

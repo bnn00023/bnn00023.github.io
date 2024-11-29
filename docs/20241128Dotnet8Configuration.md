@@ -1,5 +1,5 @@
 ---
-layout: "Configuration"
+layout: "default"
 title: "Configuration"
 permalink: /Configuration/
 ---
