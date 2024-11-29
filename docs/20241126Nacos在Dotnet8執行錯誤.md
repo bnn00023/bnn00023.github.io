@@ -58,9 +58,9 @@ ENTRYPOINT ["dotnet", "NacosApi7.dll" , "--urls", "http://+:12345"]
 ```
 
 ## 解決方法
-發現"--urls+http://+:12345"與"--urls", "http://+:12345"這兩種寫法是產生的結果是一樣。
+發現"--urls=http://+:12345"與"--urls", "http://+:12345"這兩種寫法是產生的結果是一樣。
 ``` Dockerfile
-ENTRYPOINT ["dotnet", "NacosApi7.dll" , "--urls+http://+:12345"]
+ENTRYPOINT ["dotnet", "NacosApi7.dll" , "--urls=http://+:12345"]
 ```
 
 ## 疑問
