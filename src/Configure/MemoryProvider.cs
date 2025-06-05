@@ -16,7 +16,7 @@ namespace Configure
             return Data.GetEnumerator();
         }
 
-        internal void Chnage(string text)
+        internal void Change(string text)
         {
             Data["TestOption:Text"] = text;
             OnReload();
