@@ -10,9 +10,9 @@ namespace Configure
             return _provider;
         }
 
-        internal void Chnage(string text)
+        internal void Change(string text)
         {
-            _provider.Chnage(text);
+            _provider.Change(text);
         }
     }
 }

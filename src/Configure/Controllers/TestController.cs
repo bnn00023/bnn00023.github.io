@@ -44,7 +44,7 @@ namespace Configure.Controllers
         [HttpPut("Change")]
         public Task ChangeText(string text)
         {
-            _memorySource.Chnage(text);
+            _memorySource.Change(text);
             return Task.CompletedTask;
         }
     }
