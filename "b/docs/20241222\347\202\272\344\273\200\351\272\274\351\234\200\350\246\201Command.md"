@@ -1,0 +1,38 @@
+---
+layout: default
+title: "為什麼需要 Command"
+permalink: /為什麼需要Command/
+---
+
+## 為什麼需要 Command？
+在許多專案中常聽到「直接接 API 把 Request 拿來用就好」的說法，但隨著需求成長，
+僅靠原始的 HTTP Request 可能無法滿足行為與驗證的需求。這時候 Command 的概念就顯得
+重要。
+
+## Command 的角色
+Command 代表「誰要做什麼事」。它是一個封裝指令及其意義的物件，與通訊方式無關：
+不論資料來自 Excel 匯入、UI 操作、Command Line 或 Scraper爬到的HttpContent，最後都能轉為相同的
+Command 結構，進而呼叫核心服務。
+
+## 多來源的資料整合
+以「歷史紀錄」為例（原稱 Statement History），只要資料進入此模組，就必須
+將 TodayCredit 加上金額數值。Scraper爬到的HttpContent 和使用者透過 Excel 上傳的資料格式完全不同，
+若直接處理 HTTP Request，勢必得在各入口處分別實作對應邏輯，增加維護負擔。而使用
+Command 後，所有資料先轉換成對應的 Command，統一在 Application 層進行處理與驗證。
+
+## 行為與通訊協定分離
+當第一個功能是 Excel 匯入時，若把 Command 設計成依賴 IFile 會導致後續 Scraper爬到的HttpContent 也
+必須轉回檔案才能使用，顯得相當不合理。將檔案解析後轉為 Command，才能讓後續
+新增來源時不需修改既有流程，也能在執行前先驗證資料是否完整。
+
+## 執行流程範例
+1. 各種入口（UI、Excel、Scraper爬到的HttpContent…）取得原始資料。
+2. 轉換成對應的 Command，如 `CreateHistoryCommand`。
+
+透過這樣的流程，就算未來新增其他入口（例如 command line 工具或背景服務），也能
+直接重複利用相同的 Command 與處理邏輯。
+
+## 結論
+Command 將「做什麼事」與「資料從哪來」分開，避免邏輯散落在各層，讓系統更容易維護
+與擴充。當需求逐漸複雜時，別再只使用裸 Request；利用 Command 能讓專案在面對多個
+資料來源時仍保持一致且清晰的行為。
