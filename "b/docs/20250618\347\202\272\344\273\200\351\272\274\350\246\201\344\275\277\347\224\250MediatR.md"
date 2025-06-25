@@ -1,0 +1,76 @@
+---
+layout: default
+title: "為什麼要使用 MediatR"
+permalink: /為什麼要使用MediatR/
+---
+
+# 為什麼要使用 MediatR？
+
+## 背景與需求分析方法
+
+在不同的需求分析方法中，**Command** 是個重要的概念，代表「誰要做什麼事情」：
+
+- **UML Use Case**：Command 可表示某個使用者或系統觸發的行為。
+- **Event Storming**：Command 是觸發特定 Event 的動作，Event 來代表曾經發生過的事實。
+- **User Story**：Who 想要用某個 Command 完成某件事，這件事有什麼樣的價值。
+
+這些方法背後的邏輯，都可以抽象成一系列處理步驟：
+
+1. 判斷觸發當前行為的是「誰」想做「什麼事」
+2. 驗證「誰」是否有權限執行此行為
+3. 驗證傳入的參數是否正確
+4. 執行前是否需要進行 Lock 保護（如分散式鎖）
+5. 執行商業邏輯
+6. 儲存執行結果
+7. 紀錄 Log
+8. 將結果通知其他系統（如 Kafka、通知服務）
+
+這類流程，非常適合利用 **MediatR 的 Pipeline Behaviors** 進行結構化與模組化的處理。
+
+---
+
+## 在 Roof 專案中的使用實例
+
+以下為 Roof 專案中對應的 MediatR 步驟：
+
+| 步驟 | 說明 | MediatR 實作 |
+|------|------|---------------|
+| 1    | 判斷觸發者與行為（LoginUser + Command） | ✅ 已實作 |
+| 2    | 權限驗證 | ❌ 尚未實作（預計可使用 `AuthValidate`） |
+| 3    | 資料驗證 | ✅ `DataValidate` |
+| 4    | Lock 機制 | ❌ 尚未實作（可整合 Redis RedLock） |
+| 5    | 商業邏輯 | ✅ `Handler` |
+| 6    | 儲存資料 | ✅ `DbSaver` |
+| 7    | 紀錄操作 | ✅ `DbSaver` |
+| 8    | 發送通知 | ❌ 尚未實作（可考慮整合 `Event`、`Task`、`Kafka`、`Notification`） |
+
+> **註**：步驟 1~3 是在 `Handler` 執行前進行判斷，若不通過即中止執行。步驟 6~8 則是根據執行結果後續處理。
+
+---
+
+## MediatR 的核心功能
+
+- **Dynamic Dispatch**
+  自動注入與尋找對應的 `Command` 與 `Handler`。
+
+- **Pipeline Behaviors**
+  可攔截 `Handler` 執行前後的操作，如驗證、紀錄、鎖定、日誌處理等。
+
+- **Notifications**
+  支援非同步事件通知，促進模組間的解耦與擴展性。
+
+---
+
+## 使用 MediatR 的優點
+
+1. **明確分離 1~8 的處理步驟**，迫使開發者有系統性地思考需求處理流程。
+2. **可選擇性套用功能**，每個 API 僅需加上所需的行為處理。
+3. **方便 MR 審查**，根據修改的 `Command` / `Handler` 可清楚對應改動的功能模塊。
+4. **易於單元測試**，各 `CommandHandler` 與 `Behavior` 都可獨立測試。
+5. **避免 Fat Service**，將邏輯拆分成多個小型 class，降低耦合、提高可維護性。
+
+---
+
+## 小結
+
+MediatR 是一個實現 [CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) 模式與 AOP 架構的理想工具，透過 `Command/Handler`、`Pipeline Behavior` 及 `Notification` 的設計，協助我們將業務流程拆解為可組合、可測試、可維護的模組，進一步提升系統的彈性與穩定性。
