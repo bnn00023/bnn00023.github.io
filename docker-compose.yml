@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: otel-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: otel
+      POSTGRES_PASSWORD: otel
+      POSTGRES_DB: otel
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: otel-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.54
+    container_name: otel-jaeger
+    restart: unless-stopped
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: ":9411"
+    command:
+      - "--collector.otlp.enabled=true"
+    ports:
+      - "16686:16686"
+      - "6831:6831/udp"
+      - "4317:4317"
+      - "4318:4318"
+
+volumes:
+  postgres-data:
